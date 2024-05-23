@@ -1,0 +1,14 @@
+#mapa-User-mapbox{
+  width: 90%;
+  height: 50%;
+  background-color: white;
+  margin: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#panel-Options{
+    width: 16%;
+    height: 30%;
+    background-color: white;
+}

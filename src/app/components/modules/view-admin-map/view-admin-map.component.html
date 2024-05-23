@@ -1,0 +1,39 @@
+<app-menu-bar-admin></app-menu-bar-admin>
+<div id="mapa-Admin-mapbox"></div>
+
+<button type="button" (click)="addAreaRiskButton()" class="btn btn-primary">Agregar Area con riesgo de contagio</button>
+
+
+<p-dialog [(visible)]="visibleaddRisk">
+  <div id="mapa-Admin-mapbox"></div>
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column px-8 py-5 gap-4">
+      <h5>Agregar Area de riesgo en la ubicacion seleccionada</h5>
+      <form [formGroup]="formGroup">
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Descripcion</label>
+          <input type="email" class="form-control" id="descripcion" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Razon</label>
+          <input type="email" class="form-control" id="razon" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Precauciones</label>
+          <input type="email" class="form-control" id="precauciones" aria-describedby="emailHelp">
+        </div>
+
+
+        <div class="flex align-items-center gap-2">
+          <p-button label="Crear" (click)="saveRisk()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+          <p-button label="Cancel" (click)="closeDialogadd()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-dialog>

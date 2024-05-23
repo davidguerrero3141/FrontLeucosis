@@ -1,0 +1,267 @@
+<app-menu-bar></app-menu-bar>
+<div id="buttonAdd">
+<p-button (click)="showDialogadd()" icon="pi pi-user" label="Agregar Bovino"></p-button>
+</div>
+<div id="tableBovines">
+  <div class="card">
+    <p-toast></p-toast>
+    <p-table [value]="bovines" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nombre</th>
+          <th>Raza</th>
+          <th>Genero</th>
+          <th>Edad</th>
+          <th>Leucosis</th>
+          <th style="width: 5rem">Eventos Veterinario</th>
+          <th style="width: 5rem">Eventos Externo</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bovine>
+        <tr>
+          <td>{{ bovine.nameBovine }}</td>
+          <td>{{ bovine.race }}</td>
+          <td>{{ bovine.gender }}</td>
+          <td>Años:{{ bovine.years }} - Meses: {{bovine.months}}</td>
+          <td>
+
+            <button type="button" pButton pRipple> Falso </button>
+          </td>
+          <td>
+            <button type="button" pButton pRipple icon="pi pi-upload" (click)="showDialogevent(bovine)"></button>
+            <button type="button" pButton pRipple icon="pi pi-plus-circle" (click)="showDialogInsem(bovine)"></button>
+          </td>
+          <td>
+            <button type="button" pButton pRipple icon="pi pi-flag" (click)="showDialogExpo()"></button>
+            <button type="button" pButton pRipple icon="pi pi-wallet" (click)="showDialogSale()"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>
+
+<p-dialog [(visible)]="visibleadd">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column px-8 py-5 gap-4">
+      <h3>Registrar bovino</h3>
+      <form [formGroup]="formGroup">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nombre</label>
+          <input type="email" class="form-control" formControlName="nombre" id="nombre" placeholder="Nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">Raza</label>
+          <select class="form-select" formControlName="raza" id="raza" aria-label="Default select example">
+            <option value="Normando">Normando</option>
+            <option value="Holstein">Holstein</option>
+            <option value="Cruce">Cruce</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">Genero</label>
+          <select class="form-select" formControlName="genero" id="genero" aria-label="Default select example">
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">Años</label>
+          <input type="text" class="form-control" formControlName="años" id="años">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">Meses</label>
+          <input type="text" class="form-control" formControlName="meses" id="meses">
+        </div>
+
+        <label class="form-label">Fecha nacimiento</label>
+        <div class="form-floating mb-3">
+          <input type="date" formControlName="FechaN" id="FechaN" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">Propiedad</label>
+          <select class="form-select" formControlName="propiedad" id="propiedad" aria-label="Default select example">
+            <option value="true">Propio</option>
+            <option value="false">Aumento</option>
+          </select>
+        </div>
+
+        <div class="flex align-items-center gap-2">
+          <p-button label="Crear" (click)="registro()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+          <p-button label="Cancel" (click)="closeDialogadd()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="visibleevent">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column px-8 py-5 gap-4">
+      <h1>Procedimiento veterinario</h1>
+
+      <form [formGroup]="formGroupevent">
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">Tipo Farmaceutico</label>
+          <select class="form-select" formControlName="tiposup" id="tiposup" aria-label="Default select example">
+            <option value="Normando">Vitamina</option>
+            <option value="Holstein">Medicina</option>
+            <option value="Cruce">Suplemento</option>
+          </select>
+        </div>
+
+        <label class="form-label">Fecha Suministrado</label>
+        <div class="form-floating mb-3">
+          <input type="date" formControlName="Fechasuministrado" id="Fechasuministrado" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nombre Farmaceutico</label>
+          <input type="email" class="form-control" formControlName="nombrefar" id="nombrefar" placeholder="Nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Dosis Suministrada</label>
+          <input type="text" class="form-control" formControlName="dosis" id="dosis" placeholder="Dosis">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Descripción</label>
+          <input type="text" class="form-control" formControlName="descripcion" id="descripcion">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Uso de instrumento individual</label>
+          <select class="form-select" formControlName="instrumento" id="instrumento"
+            aria-label="Default select example">
+            <option value=true>Si</option>
+            <option value=False>No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Suministrado por</label>
+          <input type="text" class="form-control" formControlName="madeBy" id="MadeBy">
+        </div>
+
+        <div class="flex align-items-center gap-2">
+          <p-button label="Guardar" (click)="AddEventVeterinary()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+          <p-button label="Cancel" (click)="closeDialogevent()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="visibleinsem">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column px-8 py-5 gap-4">
+      <h4>Inseminación</h4>
+
+      <form [formGroup]="formGroupInsem">
+
+        <label class="form-label">Fecha Inseminacion</label>
+        <div class="form-floating mb-3">
+          <input type="date" formControlName="Fechainseminacion" id="Fechainseminacion" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="Nombre de quien realizó">Nombre de quien realizo</label>
+          <input type="text" class="form-control" formControlName="realizo" id="Realizo" placeholder="Nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="Nombre de quien realizó">Instrumento individual</label>
+          <select class="form-select" formControlName="instrumentoind" id="instrumentoind"
+            aria-label="Default select example">
+            <option value=true>Si</option>
+            <option value=False>No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Nombre de quien realizó">Semen certificado</label>
+          <select class="form-select" formControlName="semencer" id="cemencer" aria-label="Default select example">
+            <option value=true>Si</option>
+            <option value=False>No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Nombre de quien realizó">Monta Directa</label>
+          <select class="form-select" formControlName="motadirecta" id="motadirecta"
+            aria-label="Default select example">
+            <option value=true>Si</option>
+            <option value=False>No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Nombre de quien realizó">Observaciones</label>
+          <input type="text" class="form-control" formControlName="observaciones" id="observaciones" placeholder="Nombre">
+        </div>
+
+        <div class="flex align-items-center gap-2">
+          <p-button label="Guardar" (click) = "AddInsemination()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+          <p-button label="Cancel" (click)="closeDialogevent()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="visiblesale">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column px-8 py-5 gap-4">
+      <h1>Registro de Venta</h1>
+      <form [formGroup]="formGroup">
+        <div class="flex align-items-center gap-2">
+          <p-button label="Crear" (click)="registro()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+          <p-button label="Cancel" (click)="closeDialogadd()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="visibleExpos">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column px-8 py-5 gap-4">
+      <h1>Exposición Ganadera</h1>
+      <form [formGroup]="formGroup">
+        <div class="flex align-items-center gap-2">
+          <p-button label="Crear" (click)="registro()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+          <p-button label="Cancel" (click)="closeDialogExpo()"
+            styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+            class="w-full"></p-button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-dialog>
